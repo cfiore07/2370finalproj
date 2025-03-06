@@ -1,3 +1,5 @@
+package graph;
+
 import java.util.HashMap;
 
 /** A Node class for a adjacency-list representation of a graph.  Nodes are

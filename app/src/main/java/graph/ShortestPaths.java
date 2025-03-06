@@ -1,3 +1,5 @@
+package graph;
+
 import java.util.Map;
 import java.util.HashMap;
 import java.util.LinkedList;
@@ -30,7 +32,7 @@ public class ShortestPaths {
 
         // TODO 1: implement Dijkstra's algorithm to fill paths with
         // shortest-path data for each Node reachable from origin.
-
+        throw new UnsupportedOperationException();
     }
 
     /** Returns the length of the shortest path from the origin to destination.
@@ -53,6 +55,7 @@ public class ShortestPaths {
         // TODO 3 - implement this method to reconstruct sequence of Nodes
         // along the shortest path from the origin to destination using the
         // paths data computed by Dijkstra's algorithm.
+
         throw new UnsupportedOperationException();
     }
 

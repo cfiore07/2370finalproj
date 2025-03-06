@@ -6,7 +6,6 @@ import org.junit.FixMethodOrder;
 import org.junit.Test;
 import org.junit.runners.MethodSorters;
 
-import java.net.URL;
 import java.io.FileNotFoundException;
 
 import java.util.LinkedList;
@@ -56,6 +55,56 @@ public class ShortestPathsTest {
         assertEquals(sp.shortestPathLength(b), 1.0, 1e-6);
     }
 
+    @Test
+    public void testRootDistanceNoOtherNodes() {
+        // Test for correct distance on root node without any other nodes
+        // present
+        Graph g = new Graph();
+        Node a = g.getNode("A");
+        ShortestPaths sp = new ShortestPaths();
+        sp.compute(a);
+
+        LinkedList<Node> path = sp.shortestPath(a);
+
+        // Path for first node should be 0 always
+        assertEquals("Shortest path to itself should be 1 node long", 0, path.size());
+        assertEquals("First (and only) node in path should be A", a, path.getFirst());
+
+    }
+
+    @Test
+    public void testRootDistanceNodesPointingAway(){
+        // Test for correct distance on root node with other nodes present but none returning to a
+        Graph g = loadBasicGraph("Simple01.txt");
+        g.report();
+        ShortestPaths sp = new ShortestPaths();
+        Node a = g.getNode("A");
+        sp.compute(a);
+
+
+        LinkedList<Node> path = sp.shortestPath(a);
+
+        // Path for first node should be 0 always
+        assertEquals("Shortest path to itself should be 1 node long", 0, path.size());
+        assertEquals("First (and only) node in path should be A", a, path.getFirst());
+    }
+
+    @Test
+    public void testRootDistanceNodesCircleBack(){
+        // Test for correct distance on root node with other nodes present but none returning to a
+        Graph g = loadBasicGraph("Simple01.txt");
+        g.report();
+        ShortestPaths sp = new ShortestPaths();
+        Node a = g.getNode("A");
+        sp.compute(a);
+
+
+        LinkedList<Node> path = sp.shortestPath(a);
+
+        // Path for first node should be 0 always
+        assertEquals("Shortest path to itself should be 1 node long", 0, path.size());
+        assertEquals("First (and only) node in path should be A", a, path.getFirst());
+    }
     /* Pro tip: unless you include @Test on the line above your method header,
      * gradle test will not run it! This gets me every time. */
 }

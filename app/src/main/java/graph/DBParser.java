@@ -1,3 +1,5 @@
+package graph;
+
 import java.util.Scanner;
 import java.util.HashMap;
 import java.io.File;
