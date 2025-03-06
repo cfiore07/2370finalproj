@@ -4,6 +4,7 @@ import java.util.PriorityQueue;
 import graph.Node;
 import graph.ShortestPaths.PathData;
 
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedList;
@@ -37,30 +38,27 @@ public class ShortestPaths {
         // TODO 1: implement Dijkstra's algorithm to fill paths with
         // shortest-path data for each Node reachable from origin.
         
-        //initialize single source
-        for(Node v : paths.keySet()) {
-        	paths.get(v).distance = Integer.MAX_VALUE;
-        	paths.get(v).previous = null;
-        }
+        paths.put(origin, new PathData(0, null));
         
-        paths.get(origin).distance = 0;
-        	
+    	
         //initialize closed set and priority queue
         HashSet<Node> S = new HashSet<>();
-        PriorityQueue<Node> Q = new PriorityQueue<>();
+        PriorityQueue<Node> Q = new PriorityQueue<>(Comparator.comparingDouble(node -> paths.get(node).distance));
         
-        //add all vertices to priority queue
-        Q.addAll(paths.keySet());
+        //add origin to priority queue
+        Q.add(origin);
         
+        //queue processing
         while(!Q.isEmpty()) {
-        	Node u = Q.remove();
-        	S.add(u);
-        	for(Map.Entry<Node,Double> entry : u.getNeighbors().entrySet()) {
-        		Node v = entry.getKey();
-        		Double w = entry.getValue();
-        		 
-        		if(paths.get(u).distance + w < paths.get(v).distance) {
-        			paths.put(v, new PathData(paths.get(u).distance + w, u));
+        	Node current = Q.poll();
+        	S.add(current);
+        	
+        	for(Node neighbor : current.getNeighbors().keySet()) {
+        		double dist = paths.get(neighbor).distance + current.getNeighbors().get(neighbor);
+        		
+        		if (!paths.containsKey(neighbor) || dist < paths.get(neighbor).distance) {
+        			paths.put(neighbor, new PathData(dist, current));
+        			Q.add(neighbor);
         		}
         	}
         }
