@@ -1,7 +1,11 @@
-package graph;
-
 import java.util.Map;
+import java.util.PriorityQueue;
+
+import graph.Node;
+import graph.ShortestPaths.PathData;
+
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.LinkedList;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -32,7 +36,37 @@ public class ShortestPaths {
 
         // TODO 1: implement Dijkstra's algorithm to fill paths with
         // shortest-path data for each Node reachable from origin.
-        throw new UnsupportedOperationException();
+        
+        //initialize single source
+        for(Node v : paths.keySet()) {
+        	paths.get(v).distance = Integer.MAX_VALUE;
+        	paths.get(v).previous = null;
+        }
+        
+        paths.get(origin).distance = 0;
+        	
+        //initialize closed set and priority queue
+        HashSet<Node> S = new HashSet<>();
+        PriorityQueue<Node> Q = new PriorityQueue<>();
+        
+        //add all vertices to priority queue
+        Q.addAll(paths.keySet());
+        
+        while(!Q.isEmpty()) {
+        	Node u = Q.remove();
+        	S.add(u);
+        	for(Map.Entry<Node,Double> entry : u.getNeighbors().entrySet()) {
+        		Node v = entry.getKey();
+        		Double w = entry.getValue();
+        		 
+        		if(paths.get(u).distance + w < paths.get(v).distance) {
+        			paths.put(v, new PathData(paths.get(u).distance + w, u));
+        		}
+        	}
+        }
+        	
+        //check for unreachable nodes
+        
     }
 
     /** Returns the length of the shortest path from the origin to destination.
@@ -55,7 +89,6 @@ public class ShortestPaths {
         // TODO 3 - implement this method to reconstruct sequence of Nodes
         // along the shortest path from the origin to destination using the
         // paths data computed by Dijkstra's algorithm.
-
         throw new UnsupportedOperationException();
     }
 
