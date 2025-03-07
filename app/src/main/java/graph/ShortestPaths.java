@@ -38,10 +38,11 @@ public class ShortestPaths {
         // TODO 1: implement Dijkstra's algorithm to fill paths with
         // shortest-path data for each Node reachable from origin.
         
+        //add origin node to paths with 0 distance and no predecessor
         paths.put(origin, new PathData(0, null));
-        
-    	
-        //initialize closed set and priority queue
+       
+        	
+        //initialize closed set and priority queue, which sorts nodes by their distance to source
         HashSet<Node> S = new HashSet<>();
         PriorityQueue<Node> Q = new PriorityQueue<>(Comparator.comparingDouble(node -> paths.get(node).distance));
         
@@ -53,9 +54,11 @@ public class ShortestPaths {
         	Node current = Q.poll();
         	S.add(current);
         	
+        	//iterate through current node neighbors and add them to paths
         	for(Node neighbor : current.getNeighbors().keySet()) {
-        		double dist = paths.get(neighbor).distance + current.getNeighbors().get(neighbor);
+        		double dist = paths.get(current).distance + current.getNeighbors().get(neighbor);
         		
+        		//add neighbor to paths if it isn't already there or relax if a shorter route is found
         		if (!paths.containsKey(neighbor) || dist < paths.get(neighbor).distance) {
         			paths.put(neighbor, new PathData(dist, current));
         			Q.add(neighbor);
