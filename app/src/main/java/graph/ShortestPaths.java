@@ -1,3 +1,5 @@
+package graph;
+
 import java.util.Map;
 import java.util.PriorityQueue;
 
@@ -61,6 +63,11 @@ public class ShortestPaths {
         		//add neighbor to paths if it isn't already there or relax if a shorter route is found
         		if (!paths.containsKey(neighbor) || dist < paths.get(neighbor).distance) {
         			paths.put(neighbor, new PathData(dist, current));
+
+                    // Depending on input size it may be worthwhile to implement a decrease-key
+                    // simulation here (i.e. we have a small graph) but otherwise
+                    // best not to follow the sudo code to a T here.
+
         			Q.add(neighbor);
         		}
         	}
@@ -77,7 +84,15 @@ public class ShortestPaths {
     public double shortestPathLength(Node destination) {
         // TODO 2 - implement this method to fetch the shortest path length
         // from the paths data computed by Dijkstra's algorithm.
-        throw new UnsupportedOperationException();
+
+        //This was really easy to implement, and I can't see how to easily implement
+        //test cases without it
+
+        // Never mind, found a way.
+        if (paths.containsKey(destination)) {
+            return paths.get(destination).distance;
+        }
+        return Double.POSITIVE_INFINITY;
     }
 
     /** Returns a LinkedList of the nodes along the shortest path from origin
