@@ -6,12 +6,14 @@ import java.util.PriorityQueue;
 import graph.Node;
 import graph.ShortestPaths.PathData;
 
+import javax.print.attribute.standard.Sides;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedList;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.util.Scanner;
 
 /** Provides an implementation of Dijkstra's single-source shortest paths
  * algorithm.
@@ -121,7 +123,7 @@ public class ShortestPaths {
             route.add(temp);
             temp = paths.get(temp).previous;
         }
-        return route;
+        return route.reversed();
     }
 
 
@@ -186,6 +188,14 @@ public class ShortestPaths {
 
         // TODO 4: create a ShortestPaths object, use it to compute shortest
         // paths data from the origin node given by origCode.
+
+
+        ShortestPaths sp = new ShortestPaths();
+        Node orig = new Node(SidewalkOrigCode);
+        sp.compute(orig);
+
+
+
 
         // TODO 5:
         // If destCode was not given, print each reachable node followed by the
