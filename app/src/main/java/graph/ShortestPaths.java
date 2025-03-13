@@ -109,8 +109,6 @@ public class ShortestPaths {
         //initialize LinkedList to store nodes along shortest path
         LinkedList<Node> route = new LinkedList<>();
 
-        //assign origin to variable for ease of access
-        Node origin = paths.keySet().toArray()[0];
         //check if origin node and destination node are the same
         //if true, return LinkedList with only destination node
         if (paths.keySet().toArray()[0].equals(destination) ){
@@ -118,10 +116,12 @@ public class ShortestPaths {
             return route;
         }
 
-
-
-
-
+        Node temp = destination;
+        while(paths.get(temp).previous != null) {
+            route.add(temp);
+            temp = paths.get(temp).previous;
+        }
+        return route;
     }
 
 
