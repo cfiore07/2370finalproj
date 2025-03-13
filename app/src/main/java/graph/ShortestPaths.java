@@ -67,9 +67,6 @@ public class ShortestPaths {
                 }
             }
         }
-
-        //check for unreachable nodes
-
     }
 
     /** Returns the length of the shortest path from the origin to destination.
@@ -111,12 +108,14 @@ public class ShortestPaths {
             return route;
         }
 
+        //iterate through predecessor nodes starting from destination back to origin
         Node temp = destination;
         while(paths.get(temp).previous != null) {
             route.add(temp);
             temp = paths.get(temp).previous;
         }
-        return route;
+
+        return route.reversed();
     }
 
 
