@@ -39,42 +39,42 @@ public class ShortestPaths {
 
         // TODO 1: implement Dijkstra's algorithm to fill paths with
         // shortest-path data for each Node reachable from origin.
-        
+
         //add origin node to paths with 0 distance and no predecessor
         paths.put(origin, new PathData(0, null));
-       
-        	
+
+
         //initialize closed set and priority queue, which sorts nodes by their distance to source
         HashSet<Node> S = new HashSet<>();
         PriorityQueue<Node> Q = new PriorityQueue<>(Comparator.comparingDouble(node -> paths.get(node).distance));
-        
+
         //add origin to priority queue
         Q.add(origin);
-        
+
         //queue processing
         while(!Q.isEmpty()) {
-        	Node current = Q.poll();
-        	S.add(current);
-        	
-        	//iterate through current node neighbors and add them to paths
-        	for(Node neighbor : current.getNeighbors().keySet()) {
-        		double dist = paths.get(current).distance + current.getNeighbors().get(neighbor);
-        		
-        		//add neighbor to paths if it isn't already there or relax if a shorter route is found
-        		if (!paths.containsKey(neighbor) || dist < paths.get(neighbor).distance) {
-        			paths.put(neighbor, new PathData(dist, current));
+            Node current = Q.poll();
+            S.add(current);
+
+            //iterate through current node neighbors and add them to paths
+            for(Node neighbor : current.getNeighbors().keySet()) {
+                double dist = paths.get(current).distance + current.getNeighbors().get(neighbor);
+
+                //add neighbor to paths if it isn't already there or relax if a shorter route is found
+                if (!paths.containsKey(neighbor) || dist < paths.get(neighbor).distance) {
+                    paths.put(neighbor, new PathData(dist, current));
 
                     // Depending on input size it may be worthwhile to implement a decrease-key
                     // simulation here (i.e. we have a small graph) but otherwise
                     // best not to follow the sudo code to a T here.
 
-        			Q.add(neighbor);
-        		}
-        	}
+                    Q.add(neighbor);
+                }
+            }
         }
-        	
+
         //check for unreachable nodes
-        
+
     }
 
     /** Returns the length of the shortest path from the origin to destination.
@@ -105,7 +105,23 @@ public class ShortestPaths {
         // TODO 3 - implement this method to reconstruct sequence of Nodes
         // along the shortest path from the origin to destination using the
         // paths data computed by Dijkstra's algorithm.
-        throw new UnsupportedOperationException();
+
+        //initialize LinkedList to store nodes along shortest path
+        LinkedList<Node> route = new LinkedList<>();
+
+        //assign origin to variable for ease of access
+        Node origin = paths.keySet().toArray()[0];
+        //check if origin node and destination node are the same
+        //if true, return LinkedList with only destination node
+        if (paths.keySet().toArray()[0].equals(destination) ){
+            route.add(destination);
+            return route;
+        }
+
+
+
+
+
     }
 
 
@@ -127,7 +143,7 @@ public class ShortestPaths {
      * information. Can parse either a basic file or a CSV file with
      * sidewalk data. See GraphParser, BasicParser, and DBParser for more.*/
     protected static Graph parseGraph(String fileType, String fileName) throws
-        FileNotFoundException {
+            FileNotFoundException {
         // create an appropriate parser for the given file type
         GraphParser parser;
         if (fileType.equals("basic")) {
@@ -147,37 +163,37 @@ public class ShortestPaths {
     }
 
     public static void main(String[] args) {
-      // read command line args
-      String fileType = args[0];
-      String fileName = args[1];
-      String SidewalkOrigCode = args[2];
+        // read command line args
+        String fileType = args[0];
+        String fileName = args[1];
+        String SidewalkOrigCode = args[2];
 
-      String SidewalkDestCode = null;
-      if (args.length == 4) {
-        SidewalkDestCode = args[3];
-      }
+        String SidewalkDestCode = null;
+        if (args.length == 4) {
+            SidewalkDestCode = args[3];
+        }
 
-      // parse a graph with the given type and filename
-      Graph graph;
-      try {
-          graph = parseGraph(fileType, fileName);
-      } catch (FileNotFoundException e) {
-          System.out.println("Could not open file " + fileName);
-          return;
-      }
-      graph.report();
+        // parse a graph with the given type and filename
+        Graph graph;
+        try {
+            graph = parseGraph(fileType, fileName);
+        } catch (FileNotFoundException e) {
+            System.out.println("Could not open file " + fileName);
+            return;
+        }
+        graph.report();
 
 
-      // TODO 4: create a ShortestPaths object, use it to compute shortest
-      // paths data from the origin node given by origCode.
+        // TODO 4: create a ShortestPaths object, use it to compute shortest
+        // paths data from the origin node given by origCode.
 
-      // TODO 5:
-      // If destCode was not given, print each reachable node followed by the
-      // length of the shortest path to it from the origin.
+        // TODO 5:
+        // If destCode was not given, print each reachable node followed by the
+        // length of the shortest path to it from the origin.
 
-      // TODO 6:
-      // If destCode was given, print the nodes in the path from
-      // origCode to destCode, followed by the total path length
-      // If no path exists, print a message saying so.
+        // TODO 6:
+        // If destCode was given, print the nodes in the path from
+        // origCode to destCode, followed by the total path length
+        // If no path exists, print a message saying so.
     }
 }
