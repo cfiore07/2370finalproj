@@ -1,6 +1,7 @@
 package graph;
 
 import java.util.PriorityQueue;
+import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -181,21 +182,35 @@ public class ShortestPaths {
         // TODO 4: create a ShortestPaths object, use it to compute shortest
         // paths data from the origin node given by origCode.
 
-
         ShortestPaths sp = new ShortestPaths();
         Node orig = new Node(SidewalkOrigCode);
         sp.compute(orig);
-
-
-
 
         // TODO 5:
         // If destCode was not given, print each reachable node followed by the
         // length of the shortest path to it from the origin.
 
+        if(SidewalkDestCode == null) {
+            System.out.println("Destination node unspecified.");
+
+            for(Node n : sp.paths.keySet()) {
+                System.out.println("Node: " + n.toString() + " Distance from source: " + sp.paths.get(n).distance);
+            }
+        }
+
         // TODO 6:
         // If destCode was given, print the nodes in the path from
         // origCode to destCode, followed by the total path length
         // If no path exists, print a message saying so.
+
+        else {
+            double pathLength = 0.0;
+            for (Node n : sp.shortestPath(new Node(SidewalkDestCode))) {
+                System.out.println("Node: " + n.toString() + " Distance from source: " + sp.paths.get(n).distance);
+                pathLength += sp.paths.get(n).distance;
+            }
+
+            System.out.println("Path Length: " + pathLength);
+        }
     }
 }
