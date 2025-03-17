@@ -53,20 +53,20 @@ public class ShortestPathsTest {
      * Comment out until needed.
      * */
 
-//    @Test
-//    public void test01Simple0() {
-//        Graph g = loadBasicGraph("Simple0.txt");
-//        g.report();
-//        ShortestPaths sp = new ShortestPaths();
-//        Node a = g.getNode("A");
-//        sp.compute(a);
-//        Node b = g.getNode("B");
-//        LinkedList<Node> abPath = sp.shortestPath(b);
-//        assertEquals(abPath.size(), 2);
-//        assertEquals(abPath.getFirst(), a);
-//        assertEquals(abPath.getLast(),  b);
-//        assertEquals(sp.shortestPathLength(b), 1.0, 1e-6);
-//    }
+    @Test
+    public void test01Simple0() {
+        Graph g = loadBasicGraph("Simple0.txt");
+        g.report();
+        ShortestPaths sp = new ShortestPaths();
+        Node a = g.getNode("A");
+        sp.compute(a);
+        Node b = g.getNode("B");
+        LinkedList<Node> abPath = sp.shortestPath(b);
+        assertEquals(abPath.size(), 2);
+        assertEquals(abPath.getFirst(), a);
+        assertEquals(abPath.getLast(),  b);
+        assertEquals(sp.shortestPathLength(b), 1.0, 1e-6);
+    }
 
     /**
      * Helper method to access the private "paths" field from a ShortestPaths object.

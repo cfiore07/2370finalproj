@@ -1,0 +1,15 @@
+After rigorous testing we have not seen any errors from our code.
+
+Dealing with version issues did lead to several non-obvious problems when we shared
+our work through git. This may cause problems when shared with you in this zip file.
+
+For that reason we recommend using java version 23.0.2 and the standard SDK libraries to avoid
+compatibility issues from deprecated java versions.
+
+Overall this assignment was fairly straightforward, and we didn't struggle much with implementation
+however, we did learn a good bit about how to use gradle and java compiling. These
+things will likely serve us well in the future.
+
+The initial implementation of the compute method probably took, the longest to implement,
+however it was not so much difficulty and more so confusion on requirements around implementation
+that slowed us down.

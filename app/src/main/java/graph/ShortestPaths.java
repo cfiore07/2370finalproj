@@ -1,11 +1,6 @@
 package graph;
 
-import java.util.PriorityQueue;
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.LinkedList;
+import java.util.*;
 import java.io.File;
 import java.io.FileNotFoundException;
 
@@ -117,7 +112,9 @@ public class ShortestPaths {
         }
         route.add(temp);
 
-        return route.reversed();
+        Collections.reverse(route);
+
+        return route;
     }
 
 
