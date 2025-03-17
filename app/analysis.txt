@@ -1,0 +1,17 @@
+The implementation of compute uses the java PriorityQueue which is implemented as a heap.
+The poll method in the priority queue removed the smallest distance form afformentioned heap,
+meaning it correctly uses a heap to select the next shortest distance node. This occurs
+in O(logn) time due to restructuring of the heap after a poll.
+
+The inner for loop runs a line that gets the edge weights:
+ double dist = paths.get(current).distance + current.getNeighbors().get(neighbor);
+
+Then it runs a line that compares the new edge weights against the old ones
+ if (!paths.containsKey(neighbor) || dist < paths.get(neighbor).distance) {
+
+These lines run in O(1) time.
+
+Then assuming there is a line that is weighted more favorably the line
+ Q.add(neighbor)
+Runs, which requires a restructuring of the heap which occurs in O(logn) time, meaning the inner
+for loop runs in O(logn) time correctly.
