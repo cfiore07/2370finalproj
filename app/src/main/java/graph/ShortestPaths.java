@@ -1,7 +1,6 @@
 package graph;
 
 import java.util.PriorityQueue;
-import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -183,7 +182,7 @@ public class ShortestPaths {
         // paths data from the origin node given by origCode.
 
         ShortestPaths sp = new ShortestPaths();
-        Node orig = new Node(SidewalkOrigCode);
+        Node orig = graph.getNode(SidewalkOrigCode);
         sp.compute(orig);
 
         // TODO 5:
@@ -196,6 +195,7 @@ public class ShortestPaths {
             for(Node n : sp.paths.keySet()) {
                 System.out.println("Node: " + n.toString() + " Distance from source: " + sp.paths.get(n).distance);
             }
+
         }
 
         // TODO 6:
