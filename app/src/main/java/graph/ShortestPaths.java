@@ -1,6 +1,7 @@
 package graph;
 
 import java.util.PriorityQueue;
+import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -114,6 +115,7 @@ public class ShortestPaths {
             route.add(temp);
             temp = paths.get(temp).previous;
         }
+        route.add(temp);
 
         return route.reversed();
     }
@@ -193,7 +195,7 @@ public class ShortestPaths {
             System.out.println("Destination node unspecified.");
 
             for(Node n : sp.paths.keySet()) {
-                System.out.println("Node: " + n.toString() + " Distance from source: " + sp.paths.get(n).distance);
+                System.out.println("Node: " + n.toString() + " | Distance from source: " + sp.paths.get(n).distance);
             }
 
         }
@@ -204,10 +206,13 @@ public class ShortestPaths {
         // If no path exists, print a message saying so.
 
         else {
+            System.out.println("Destination node specified: " + SidewalkDestCode);
             double pathLength = 0.0;
             for (Node n : sp.shortestPath(new Node(SidewalkDestCode))) {
-                System.out.println("Node: " + n.toString() + " Distance from source: " + sp.paths.get(n).distance);
-                pathLength += sp.paths.get(n).distance;
+                System.out.println("Node: " + n.toString() + " | Distance from source: " + sp.paths.get(n).distance);
+                if(!n.toString().equals(SidewalkOrigCode)) {
+                    pathLength += sp.paths.get(n).previous.getNeighbors().get(n);
+                }
             }
 
             System.out.println("Path Length: " + pathLength);
